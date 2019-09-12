@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <title>oie_crawling_v1 module &#8212; mySphinx 1.0 說明文件</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="prev" title="ISO3166 module" href="ISO3166.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-oie_crawling_v1">
+<span id="oie-crawling-v1-module"></span><h1>oie_crawling_v1 module<a class="headerlink" href="#module-oie_crawling_v1" title="本標題的永久連結">¶</a></h1>
+<dl class="class">
+<dt id="oie_crawling_v1.OIE_system">
+<em class="property">class </em><code class="sig-prename descclassname">oie_crawling_v1.</code><code class="sig-name descname">OIE_system</code><a class="headerlink" href="#oie_crawling_v1.OIE_system" title="本定義的永久連結">¶</a></dt>
+<dd><p>基礎類別：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="oie_crawling_v1.OIE_system.ISO3166">
+<code class="sig-name descname">ISO3166</code><span class="sig-paren">(</span><em class="sig-param">areaDesc_EN</em><span class="sig-paren">)</span><a class="headerlink" href="#oie_crawling_v1.OIE_system.ISO3166" title="本定義的永久連結">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ol class="arabic simple">
+<li><p>轉換英文國名與ISO3166不符合的</p></li>
+<li><p>再執行SQL語句，從ISO3166資料表獲取一筆國家中文名、英文名、國際碼</p></li>
+<li><p>若國名在ISO3166表中查詢不到則回傳符號 - ，以及原本的英文名</p></li>
+</ol>
+</dd>
+<dt>Parameters:</dt><dd><p>str : 英文國名</p>
+</dd>
+<dt>Returns:</dt><dd><p>可迭代的資料行 pyodbc.Row</p>
+</dd>
+<dt>Examples:</dt><dd><p>ISO3166(『Nepal』)  =&gt; return (235, 『尼泊爾』, 『Nepal』, 『NP』, None)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oie_crawling_v1.OIE_system.crawl_inner_layer">
+<code class="sig-name descname">crawl_inner_layer</code><span class="sig-paren">(</span><em class="sig-param">avian_influenza</em><span class="sig-paren">)</span><a class="headerlink" href="#oie_crawling_v1.OIE_system.crawl_inner_layer" title="本定義的永久連結">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="oie_crawling_v1.OIE_system.get_avian_influenza">
+<code class="sig-name descname">get_avian_influenza</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#oie_crawling_v1.OIE_system.get_avian_influenza" title="本定義的永久連結">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ol class="arabic simple">
+<li><p>連接OIE主頁，獲取主頁的所有案例id</p></li>
+<li><p>判斷若有關鍵字而且主頁案例id不存在本地案例id，則視為新案例，需導入</p></li>
+<li><p>用pandas存放資料並回傳</p></li>
+</ol>
+</dd>
+</dl>
+<p>Parameters:</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>可迭代的資料列表 pandas.DataFrame</p>
+</dd>
+<dt>Examples:</dt><dd><p>get_local_reportid()  =&gt; return [『31235, 『34583』, …, 『23987』]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oie_crawling_v1.OIE_system.get_local_reportid">
+<code class="sig-name descname">get_local_reportid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#oie_crawling_v1.OIE_system.get_local_reportid" title="本定義的永久連結">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ol class="arabic simple">
+<li><p>執行SQL語句，從OIE資料表取的所有案例id</p></li>
+</ol>
+</dd>
+</dl>
+<p>Parameters:</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>可迭代的列表 list</p>
+</dd>
+<dt>Examples:</dt><dd><p>get_local_reportid()  =&gt; return [『31235, 『34583』, …, 『23987』]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oie_crawling_v1.OIE_system.to_mssql">
+<code class="sig-name descname">to_mssql</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">table</em><span class="sig-paren">)</span><a class="headerlink" href="#oie_crawling_v1.OIE_system.to_mssql" title="本定義的永久連結">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mySphinx</a></h1>
+
+
+
+
+
+
+
+
+<h3>瀏覽</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ISO3166.html">ISO3166 module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">oie_crawling_v1 module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ISO3166.html" title="上一章">ISO3166 module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="搜" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Johnny.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/code/oie_crawling_v1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

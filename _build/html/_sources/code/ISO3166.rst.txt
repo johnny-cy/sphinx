@@ -1,0 +1,7 @@
+ISO3166 module
+==============
+
+.. automodule:: ISO3166
+   :members:
+   :undoc-members:
+   :show-inheritance:
